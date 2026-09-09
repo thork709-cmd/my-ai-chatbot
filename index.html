@@ -1,1 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>My AI</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+        }
+
+        header {
+            background: #111;
+            color: white;
+            padding: 18px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        #chat {
+            height: calc(100vh - 135px);
+            overflow-y: auto;
+            padding: 15px;
+        }
+
+        .message {
+            padding: 12px 15px;
+            margin: 10px 0;
+            border-radius: 15px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+
+        .bot {
+            background: white;
+            margin-right: auto;
+        }
+
+        .user {
+            background: #111;
+            color: white;
+            margin-left: auto;
+        }
+
+        #inputArea {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            gap: 8px;
+            padding: 10px;
+            background: white;
+            border-top: 1px solid #ddd;
+        }
+
+        #messageInput {
+            flex: 1;
+            padding: 13px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        #sendButton {
+            padding: 13px 18px;
+            border: none;
+            border-radius: 10px;
+            background: #111;
+            color: white;
+            font-size: 16px;
+        }
+
+        #sendButton:active {
+            transform: scale(0.95);
+        }
+
+    </style>
+</head>
+
+<body>
+
+<header>
+    🤖 My AI
+</header>
+
+<div id="chat">
+
+    <div class="message bot">
+        Hello! 👋 I'm your AI assistant. How can I help you?
+    </div>
+
+</div>
+
+<div id="inputArea">
+
+    <input
+        id="messageInput"
+        type="text"
+        placeholder="Message My AI..."
+    >
+
+    <button id="sendButton">
+        Send
+    </button>
+
+</div>
+
+<script>
+
+const input = document.getElementById("messageInput");
+const sendButton = document.getElementById("sendButton");
+const chat = document.getElementById("chat");
+
+function sendMessage() {
+
+    const message = input.value.trim();
+
+    if (message === "") {
+        return;
+    }
+
+    // Add user's message
+    const userMessage = document.createElement("div");
+
+    userMessage.className = "message user";
+    userMessage.textContent = message;
+
+    chat.appendChild(userMessage);
+
+    // Clear input
+    input.value = "";
+
+    // Temporary AI response
+    setTimeout(function() {
+
+        const botMessage = document.createElement("div");
+
+        botMessage.className = "message bot";
+
+        botMessage.textContent =
+            "I received your message! 🤖";
+
+        chat.appendChild(botMessage);
+
+        chat.scrollTop = chat.scrollHeight;
+
+    }, 500);
+}
+
+
+// Send when button is pressed
+sendButton.addEventListener("click", sendMessage);
+
+
+// Send when Enter is pressed
+input.addEventListener("keydown", function(event) {
+
+    if (event.key === "Enter") {
+        sendMessage();
+    }
+
+});
+
+</script>
+
+</body>
+</html>
